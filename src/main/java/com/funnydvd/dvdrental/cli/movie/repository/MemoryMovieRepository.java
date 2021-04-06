@@ -1,7 +1,7 @@
 package com.funnydvd.dvdrental.cli.movie.repository;
 
 import com.funnydvd.dvdrental.cli.movie.domain.Movie;
-import com.funnydvd.dvdrental.cli.movie.domain.SerchCondition;
+import com.funnydvd.dvdrental.cli.movie.domain.SearchCondition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class MemoryMovieRepository implements MovieRepository {
     }
 
     @Override
-    public List<Movie> searchMovieList(String keyword, SerchCondition condition) {
+    public List<Movie> searchMovieList(String keyword, SearchCondition condition) {
 
         //호출부에 전달할 검색데이터 리스트
         List<Movie> results = null;
@@ -58,7 +58,7 @@ public class MemoryMovieRepository implements MovieRepository {
                 results = search(keyword, (k, m) -> k.equals(m.getMovieName()));
                 break;
             case NATION:
-                //results = serchByNation(keyword);
+//                results = serchByNation(keyword);
                 results = search(keyword, (k, m) -> k.equals(m.getNation()));
                 break;
             case PUB_YEAR:
@@ -90,7 +90,7 @@ public class MemoryMovieRepository implements MovieRepository {
         return movieList;
     }
 
-    private List<Movie> searchByPubYear(String keyword) throws NumberFormatException {
+    /*private List<Movie> searchByPubYear(String keyword) throws NumberFormatException {
         List<Movie> movieList = new ArrayList<>();
         for (int key : movieMemoryDB.keySet()) {
             Movie movie = movieMemoryDB.get(key);
@@ -138,10 +138,10 @@ public class MemoryMovieRepository implements MovieRepository {
             movieList.add(movie);
         }
         return movieList;
-    }
+    }*/
 
     @Override
-    public Movie serchMovieOne(int serialNumber) {
+    public Movie searchMovieOne(int serialNumber) {
         return movieMemoryDB.get(serialNumber);
     }
 

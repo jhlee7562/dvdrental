@@ -1,26 +1,36 @@
 package com.funnydvd.dvdrental.cli.movie.domain;
 
-//역할 : 이 클래스는 하나의 DVD정보를 저장할 수 있어야 한다.
+import com.funnydvd.dvdrental.cli.user.domain.User;
+
+//역할: 이 클래스는 하나의 DVD정보를 저장할 수 있어야 한다.
 public class Movie {
 
     private int serialNumber; //dvd 식별번호
     private String movieName; //dvd 영화명
     private String nation; //영화제작국가
-    private int pubYear; //발매연도
+    private int pubYear; //발매년도
     private int charge; //대여금액
     private boolean rental; //대여상태
-    //private User rentalUser; //현재 대여자 정보
+    private User rentalUser; //현재 대여자 정보
 
     //일련번호
     private static int sequence;
 
     //생성자
-    public Movie(String movieName, String nation, int pubYear){
+    public Movie(String movieName, String nation, int pubYear) {
         this.serialNumber = ++sequence;
         this.movieName = movieName;
         this.nation = nation;
         this.pubYear = pubYear;
-        this.charge = ChargePolicy.caculateDvdCharge(this.pubYear);
+        this.charge = ChargePolicy.calculateDvdCharge(this.pubYear);
+    }
+
+    public User getRentalUser() {
+        return rentalUser;
+    }
+
+    public void setRentalUser(User rentalUser) {
+        this.rentalUser = rentalUser;
     }
 
     public int getSerialNumber() {
@@ -60,7 +70,7 @@ public class Movie {
     }
 
     public void setCharge(int charge) {
-        this.charge = charge;
+        this.charge = ChargePolicy.calculateDvdCharge(this.pubYear);
     }
 
     public boolean isRental() {
@@ -79,11 +89,12 @@ public class Movie {
         Movie.sequence = sequence;
     }
 
-    public String toString(){
+    public String toString() {
 
         String rental = this.rental ? "대여중" : "대여가능";
 
-        return String.format("### DVD번호 : %s, 영화명 : %s, 국가명 : %s, 발매연도 : %d, 대여로 : %d원, 대여상태 : %s"
-                ,serialNumber, movieName, nation, pubYear, charge, rental);
+        return String.format("### DVD번호: %s, 영화명: %s, " +
+                        "국가명: %s, 발매연도: %d년, 대여료: %d원, 대여상태: %s"
+                , serialNumber, movieName, nation, pubYear, charge, rental);
     }
 }

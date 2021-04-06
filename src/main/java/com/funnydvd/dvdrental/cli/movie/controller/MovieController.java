@@ -1,25 +1,25 @@
 package com.funnydvd.dvdrental.cli.movie.controller;
 
+import com.funnydvd.dvdrental.cli.main.AppController;
 import com.funnydvd.dvdrental.cli.movie.domain.Movie;
-import com.funnydvd.dvdrental.cli.movie.domain.SerchCondition;
+import com.funnydvd.dvdrental.cli.movie.domain.SearchCondition;
 import com.funnydvd.dvdrental.cli.movie.repository.MemoryMovieRepository;
 import com.funnydvd.dvdrental.cli.movie.repository.MovieRepository;
-import com.funnydvd.dvdrental.cli.ui.AppUI;
 
 import java.util.List;
 
-import static com.funnydvd.dvdrental.cli.movie.domain.SerchCondition.*;
+import static com.funnydvd.dvdrental.cli.movie.domain.SearchCondition.*;
 import static com.funnydvd.dvdrental.cli.ui.AppUI.*;
 
 //영화관리 시스템의 분기를 제어
-public class MovieController {
+public class MovieController implements AppController {
 
     //영화 저장소와 의존 관계 설정
     private final MovieRepository movieRepository;
 
     public MovieController() {
         movieRepository = new MemoryMovieRepository();
-        }
+    }
 
     //제어 시작 기능
     public void start() {
@@ -49,7 +49,7 @@ public class MovieController {
         showSearchConditionScreen();
         int selection = inputInteger(">>>");
 
-        SerchCondition condition = ALL;
+        SearchCondition condition = ALL;
         switch (selection) {
             case 1:
                 System.out.println("\n## 제목으로 검색합니다.");
@@ -104,10 +104,9 @@ public class MovieController {
         movieRepository.addMovie(newMovie);
         System.out.printf("\n### [%s] 정보가 정상 추가되었습니다.\n", newMovie.getMovieName());
 
-        /*System.out.println("===================================================");
+        /*
+        System.out.println("===================================================");
         movieRepository.searchMovieList("",SerchCondition.ALL)
-                .forEach(m -> System.out.println(m));
-    }
-    private static class All {*/
+                .forEach(m -> System.out.println(m));*/
     }
 }

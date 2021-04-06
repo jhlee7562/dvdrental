@@ -1,7 +1,7 @@
 package com.funnydvd.dvdrental.cli.main;
 
 import com.funnydvd.dvdrental.cli.movie.controller.MovieController;
-import com.funnydvd.dvdrental.cli.movie.domain.SerchCondition;
+import com.funnydvd.dvdrental.cli.movie.domain.SearchCondition;
 import com.funnydvd.dvdrental.cli.movie.repository.MemoryMovieRepository;
 import com.funnydvd.dvdrental.cli.movie.repository.MovieRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +20,7 @@ class AppMainTest {
         controller.start();
 
         System.out.println("============================================");
-        repository.searchMovieList("", SerchCondition.ALL)
+        repository.searchMovieList("", SearchCondition.ALL)
                 .forEach(m -> System.out.println(m));
         System.out.println("============================================");
     }
