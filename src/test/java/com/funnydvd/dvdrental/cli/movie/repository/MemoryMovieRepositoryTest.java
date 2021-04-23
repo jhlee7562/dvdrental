@@ -1,15 +1,13 @@
 package com.funnydvd.dvdrental.cli.movie.repository;
 
 import com.funnydvd.dvdrental.cli.movie.domain.Movie;
-import com.funnydvd.dvdrental.cli.movie.domain.SerchCondition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.List;
 
-import static com.funnydvd.dvdrental.cli.movie.domain.SerchCondition.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.funnydvd.dvdrental.cli.movie.domain.SearchCondition.*;
+import static java.lang.System.out;
 
 class MemoryMovieRepositoryTest {
 
@@ -22,7 +20,7 @@ class MemoryMovieRepositoryTest {
 
         repository.addMovie(newMovie);
 
-        Movie findMovie = repository.serchMovieOne(newMovie.getSerialNumber());
+        Movie findMovie = repository.searchMovieOne(newMovie.getSerialNumber());
         System.out.println("findMovie = " + findMovie);
     }
 
@@ -40,7 +38,7 @@ class MemoryMovieRepositoryTest {
     void removeTest() {
         repository.removeMovie(3);
 
-        Movie movie = repository.serchMovieOne(3);
+        Movie movie = repository.searchMovieOne(3);
         System.out.println("movie = " + movie);
     }
 
@@ -48,23 +46,20 @@ class MemoryMovieRepositoryTest {
     @DisplayName("조건에 따라 검색결과가 리턴되어야 한다.")
     void searchTest() {
 
-        for (Movie movie : repository.searchMovieList("타이타닉", TITLE)) {
-            System.out.println(movie);
-        }
+        repository.searchMovieList("타이타닉", TITLE)
+                .forEach(movie -> out.println(movie));
 
-        System.out.println("========================================================");
+        System.out.println("===============================================");
 
-        for (Movie movie : repository.searchMovieList("미국", NATION)) {
-            System.out.println(movie);
-        }
+        repository.searchMovieList("미국", NATION)
+                .forEach(movie -> out.println(movie));
 
-        System.out.println("========================================================");
+        System.out.println("===============================================");
 
-        for (Movie movie : repository.searchMovieList("1994", PUB_YEAR)) {
-            System.out.println(movie);
-        }
+        repository.searchMovieList("1994", PUB_YEAR)
+                .forEach(movie -> out.println(movie));
 
-        System.out.println("========================================================");
+        System.out.println("===============================================");
 
         List<Movie> movieList = repository.searchMovieList("", ALL);
         for (int i = 0; i < movieList.size(); i++) {
@@ -74,8 +69,7 @@ class MemoryMovieRepositoryTest {
             }
         }
 
-//        repository.searchMovieList("", POSSIBLE).forEach(out::println);
-
+        repository.searchMovieList("", POSSIBLE).forEach(out::println);
 
     }
 }
