@@ -2,6 +2,8 @@ package com.funnydvd.dvdrental.cli.user.domain;
 
 import com.funnydvd.dvdrental.cli.order.domain.Order;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,17 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.grade = BRONZE;
     }
+
+    //DB조회데이터 처리 생성자
+    public User(ResultSet rs) throws SQLException {
+        this.userNumber = rs.getInt("user_number");
+        this.userName = rs.getString("user_name");
+        this.phoneNumber = rs.getString("phone_number");
+        this.totalPaying = rs.getInt("total_paying");
+        this.grade = Grade.valueOf(rs.getString("grade"));
+    }
+
+
 
     //대여 주문 추가 기능
     public void addOrder(Order order){
