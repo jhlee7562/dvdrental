@@ -18,9 +18,10 @@ public class MovieController implements AppController {
     //영화 저장소와 의존 관계 설정
     private final MovieRepository movieRepository;
 
-    public MovieController() {
+    public MovieController(MovieRepository movieRepository) {
 //        movieRepository = new MemoryMovieRepository();
-        movieRepository = new JdbcMovieRepository();
+//        movieRepository = new JdbcMovieRepository();
+        this.movieRepository = movieRepository;
     }
 
     //제어 시작 기능
